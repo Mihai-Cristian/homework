@@ -25,10 +25,11 @@ public class BasicFunctions {
 
         switch (desiredAction) {
             case 1:
-                break;
+                System.out.println(User.getUserInformation().toString());
+                showMainFunctions();
             case 2:
                 new Login();
-                break;
+                showMainFunctions();
             case 3:
                 //TODO logout
                 break;

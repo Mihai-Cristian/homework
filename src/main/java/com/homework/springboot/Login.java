@@ -18,7 +18,7 @@ public class Login {
 
     private static final String CORRECT_USERNAME = "Mishu";
     private static final String CORRECT_PASSWORD = "Correct";
-    private static final String CORRECT_USERNAME_TWO = "Mihai";
+    private static final String CORRECT_USERNAME_TWO = "Cristian";
     private static final String CORRECT_PASSWORD_TWO = "Password";
 
     public void logIn() {
