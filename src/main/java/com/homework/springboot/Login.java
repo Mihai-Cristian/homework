@@ -2,9 +2,10 @@ package com.homework.springboot;
 
 import application.BasicFunctions;
 import application.User;
-import org.springframework.boot.SpringApplication;
 
 import java.util.Scanner;
+
+import static application.BasicFunctions.continueForward;
 
 public class Login {
 
@@ -12,8 +13,7 @@ public class Login {
         logIn();
     }
 
-    private User user = new User();
-    private boolean isLoggedIn = false;
+    private final User user = new User();
     private int loginAttempts = 3;
 
     private static final String CORRECT_USERNAME = "Mishu";
@@ -22,41 +22,43 @@ public class Login {
     private static final String CORRECT_PASSWORD_TWO = "Password";
 
     public void logIn() {
-        inputUsername();
-        inputPassword();
+        if (continueForward) {
+            inputUsername();
+            inputPassword();
 
-        if (loginAttempts == 0) {
-            System.out.println("Maximum number of tries reached. You have been logged out.");
-            logOut();
-        } else {
             for (int i = 0; i < loginAttempts; i++) {
                 try {
-                    if (isLoggedIn = checkUserAndPassCombination()) {
+                    if (checkUserAndPassCombination()) {
                         break;
                     }
                 } catch (RuntimeException e) {
                     loginAttempts--;
-                    System.out.println("Invalid combination. You have " + loginAttempts + " more tries.");
-                    logIn();
+                    if (loginAttempts == 0) {
+                        System.out.println("Maximum number of tries reached. You have been logged out.");
+                        logOut();
+                        break;
+                    } else {
+                        System.out.println("Invalid combination. You have " + loginAttempts + " more tries.");
+                        logIn();
+                    }
                 }
             }
         }
-        System.out.println("Login successful!");
-        loginAttempts = 3;
-        new BasicFunctions().showMainFunctions();
     }
 
     private boolean checkUserAndPassCombination() {
         if ((user.getUsername().equals(CORRECT_USERNAME) && user.getPassword().equals(CORRECT_PASSWORD))
                 || (user.getUsername().equals(CORRECT_USERNAME_TWO) && user.getPassword().equals(CORRECT_PASSWORD_TWO))) {
+            System.out.println("Login successful!");
             return true;
         } else {
             throw new RuntimeException();
         }
     }
 
-    public void logOut() {
-        SpringApplication.run(Application.class).close();
+    public static void logOut() {
+        continueForward = false;
+        BasicFunctions.showMainFunctions();
     }
 
     private void inputUsername() {
