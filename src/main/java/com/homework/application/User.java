@@ -1,4 +1,4 @@
-package application;
+package com.homework.application;
 
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class User {
 
     }
 
-    public static User getUserInformation() {
+    public static User getSpecificUserByUsername() {
         switch (username) {
             case "Mishu":
                 return new User("Mihai", "Toncu", 32);

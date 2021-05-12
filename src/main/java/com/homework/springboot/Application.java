@@ -1,6 +1,6 @@
 package com.homework.springboot;
 
-import application.BasicFunctions;
+import com.homework.application.BasicFunctions;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +11,8 @@ public class Application {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
-        new Login();
-        new BasicFunctions().showMainFunctions();
+        new LoggingUtils();
+        BasicFunctions.showMainFunctions();
         exitApplication(ctx);
     }
 

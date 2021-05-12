@@ -1,25 +1,25 @@
 package com.homework.springboot;
 
-import application.BasicFunctions;
-import application.User;
+import com.homework.application.BasicFunctions;
+import com.homework.application.User;
 
 import java.util.Scanner;
 
-import static application.BasicFunctions.continueForward;
+import static com.homework.application.BasicFunctions.continueForward;
 
-public class Login {
+public class LoggingUtils {
 
-    public Login() {
+    public LoggingUtils() {
         logIn();
     }
 
     private final User user = new User();
     private int loginAttempts = 3;
 
-    private static final String CORRECT_USERNAME = "Mishu";
-    private static final String CORRECT_PASSWORD = "Correct";
-    private static final String CORRECT_USERNAME_TWO = "Cristian";
-    private static final String CORRECT_PASSWORD_TWO = "Password";
+    private static final String CORRECT_USERNAME = PropertyReader.getProperty("CORRECT_USERNAME");
+    private static final String CORRECT_PASSWORD = PropertyReader.getProperty("CORRECT_PASSWORD");
+    private static final String CORRECT_USERNAME_TWO = PropertyReader.getProperty("CORRECT_USERNAME_TWO");
+    private static final String CORRECT_PASSWORD_TWO = PropertyReader.getProperty("CORRECT_PASSWORD_TWO");
 
     public void logIn() {
         if (continueForward) {
@@ -42,6 +42,7 @@ public class Login {
                         logIn();
                     }
                 }
+                break;
             }
         }
     }

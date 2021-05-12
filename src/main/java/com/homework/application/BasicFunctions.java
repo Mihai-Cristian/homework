@@ -1,6 +1,6 @@
-package application;
+package com.homework.application;
 
-import com.homework.springboot.Login;
+import com.homework.springboot.LoggingUtils;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -30,13 +30,13 @@ public class BasicFunctions {
 
         switch (desiredAction) {
             case 1:
-                System.out.println(Objects.requireNonNull(User.getUserInformation()));
+                System.out.println(Objects.requireNonNull(User.getSpecificUserByUsername()));
                 showMainFunctions();
             case 2:
-                new Login();
+                new LoggingUtils();
                 showMainFunctions();
             case 3:
-                Login.logOut();
+                LoggingUtils.logOut();
         }
     }
 }
