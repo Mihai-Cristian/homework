@@ -2,6 +2,8 @@ package com.homework.springboot;
 
 import com.homework.application.BasicFunctions;
 import com.homework.application.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
@@ -13,6 +15,7 @@ public class LoggingUtils {
         logIn();
     }
 
+    private static final Logger LOG = LogManager.getLogger(LoggingUtils.class);
     private final User user = new User();
     private int loginAttempts = 3;
 
@@ -34,11 +37,10 @@ public class LoggingUtils {
                 } catch (RuntimeException e) {
                     loginAttempts--;
                     if (loginAttempts == 0) {
-                        System.out.println("Maximum number of tries reached. You have been logged out.");
+                        LOG.error("Maximum number of tries reached. You have been logged out.");
                         logOut();
                         break;
                     } else {
-                        System.out.println("Invalid combination. You have " + loginAttempts + " more tries.");
                         logIn();
                     }
                 }
@@ -50,28 +52,30 @@ public class LoggingUtils {
     private boolean checkUserAndPassCombination() {
         if ((user.getUsername().equals(CORRECT_USERNAME) && user.getPassword().equals(CORRECT_PASSWORD))
                 || (user.getUsername().equals(CORRECT_USERNAME_TWO) && user.getPassword().equals(CORRECT_PASSWORD_TWO))) {
-            System.out.println("Login successful!");
+            LOG.info("Login successful!");
             return true;
         } else {
+            LOG.warn("Invalid combination. You have " + (loginAttempts - 1) + " more tries.");
             throw new RuntimeException();
         }
     }
 
     public static void logOut() {
+        LOG.info("Logging out...");
         continueForward = false;
         BasicFunctions.showMainFunctions();
     }
 
     private void inputUsername() {
         Scanner in = new Scanner(System.in);
-        System.out.print("Please enter username: ");
+        LOG.info("Please enter username: ");
         String username = in.nextLine();
         user.setUsername(username);
     }
 
     private void inputPassword() {
         Scanner in = new Scanner(System.in);
-        System.out.print("Please enter password: ");
+        LOG.info("Please enter password: ");
         String password = in.nextLine();
         user.setPassword(password);
     }

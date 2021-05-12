@@ -1,6 +1,8 @@
 package com.homework.application;
 
 import com.homework.springboot.LoggingUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -8,18 +10,17 @@ import java.util.Scanner;
 public class BasicFunctions {
 
     public static boolean continueForward = true;
+    private static final Logger LOG = LogManager.getLogger(BasicFunctions.class);
 
     public BasicFunctions() {
     }
 
     public static void showMainFunctions() {
         if (continueForward) {
-            System.out.println();
-            System.out.println("To see user details, type 1.");
-            System.out.println("To login with different user, type 2");
-            System.out.println("To logout, type 3.");
-            System.out.println();
-            System.out.print("Please type number: ");
+            LOG.info("To see user details, type 1.");
+            LOG.info("To login with different user, type 2");
+            LOG.info("To logout, type 3.");
+            LOG.info("Please type number: ");
             selectFunction(1);
         }
     }
@@ -30,7 +31,7 @@ public class BasicFunctions {
 
         switch (desiredAction) {
             case 1:
-                System.out.println(Objects.requireNonNull(User.getSpecificUserByUsername()));
+                LOG.info(Objects.requireNonNull(User.getSpecificUserByUsername()));
                 showMainFunctions();
             case 2:
                 new LoggingUtils();
